@@ -6,5 +6,5 @@ from upload_csv import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('^upload/', include('upload_csv.urls')),
+    path('upload/', include('upload_csv.urls')),
 ]

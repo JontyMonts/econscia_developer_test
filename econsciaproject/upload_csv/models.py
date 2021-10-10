@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import datetime # might not need
+from django import forms
+
 
 # Create your models here.
 
@@ -20,26 +22,20 @@ class MeterData(models.Model):
         natural_gas = 'Nautral Gas', 'Natural Gas'
         electricity = 'Electricity' ,'Electricity'
 
-    building_id = models.ForeignKey(Building, to_field='id', on_delete=models.PROTECT)  # sets the foreign key to be the id in building
-    id = models.IntegerField(primary_key=True)
-    fuel = models.CharField(max_length = 13, choices=Fuel.choices)
-    unit = models.CharField(max_length = 4, choices=unit_choices)
+    # building_id = models.IntegerField()
+    building_id = models.ForeignKey(Building, to_field='id', on_delete=models.CASCADE)  # sets the foreign key to be the id in building
+    meter_id = models.IntegerField(null=True) # not used as primary key as buildings can have more than 1 meter
+    fuel = models.CharField(max_length = 13)#, choices=Fuel.choices)
+    unit = models.CharField(max_length = 10)# , choices=unit_choices)
 
-    def clean(self):
-        # ensure fuel matches the unit
-        try:
-            if self.fuel == 'water':
-                assert self.unit == 'm3'
-            elif self.fuel in ['Natural Gas', 'Electricity']:
-                assert self.unit == 'kWh'
-            else:
-                raise
-        except:
-            raise ValidationError('Missmatch on fuel and unit given')
+
+    def __str__(self) -> str:
+        return str(self.id)
 
 
 class HalfhourlyData(models.Model):
     consumption = models.DecimalField(max_digits=9 ,decimal_places=5)
-    meter_id = models.ForeignKey(MeterData, to_field='id', on_delete=models.PROTECT)
+    # meter_id = models.ForeignKey(MeterData, to_field='id', on_delete=models.CASCADE)
+    meter_id = models.IntegerField()
     reading_date_time = models.DateTimeField()
     

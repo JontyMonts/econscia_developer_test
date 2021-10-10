@@ -1,0 +1,27 @@
+{% comment %} {% extends 'base.html' %} {% endcomment %}
+{% comment %} {% block content %} {% endcomment %}
+<form action="{% url "upload_csv" %}" method="POST" enctype="multipart/form-data" class="form-horizontal"> 
+{% csrf_token %}
+<div class="form-group">
+    <label for="name" class="col-md-3 col-sm-3 col-xs-12 control-label">File: </label>
+    <div class="col-md-8">
+        <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
+    </div>                    
+</div>
+<select id="csv_type" name="csv_type">
+  <option value="building">Building Data</option>
+  <option value="meter">Meter Data</option>
+  <option value="half_hourly">Half-hourly Data</option>
+</select>
+<div class="form-group">                    
+    <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
+         <button class="btn btn-primary"> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"></span>Upload </button>
+    </div> 
+</div>
+{%if post_process_message %}
+{{ post_process_message }}
+{% endif %}
+
+</form>
+
+{% comment %} {% endblock %} {% endcomment %}

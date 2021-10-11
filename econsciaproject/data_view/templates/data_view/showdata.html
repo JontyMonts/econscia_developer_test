@@ -1,1 +1,49 @@
-<h1> working </h1>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<div class="row">
+    <div class="col-md">
+        <div class="something else">
+            <h2> Buildings and meters </h2>
+        </div>
+        <div class="actualtable">
+            <table class="table">
+                <tr>
+                    <th> Building </th>
+                    <th> meters </th>
+                </tr>
+
+                    {% for building_name, meters in meter_dict.items%}
+                        <tr> 
+                            <td> {{building_name}} </td>
+                                <td> {% for meter in meters %}
+                                        <div> {{ meter }} </div>
+                                    {%endfor%}
+                                </td>
+                    {% endfor%}
+                        </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>

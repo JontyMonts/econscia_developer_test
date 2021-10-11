@@ -21,6 +21,9 @@
 {%if post_process_message %}
 {{ post_process_message }}
 {% endif %}
+{% if all_errors %}
+{{ all_errors}}
+{%endif%}
 
 </form>
 

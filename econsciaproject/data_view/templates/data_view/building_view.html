@@ -32,26 +32,26 @@
                 <table class="table">
                     <tr>
                         <th> Meter </th>
-                        <th> Time </th>
-                        <th> Consumption </th>
+                        {% comment %} <th> Time </th>
+                        <th> Consumption </th> {% endcomment %}
                         
                     </tr>
 
                         {% for meter, consumptions in meter_dict.items%}
                             <tr> 
                                 <td> {{meter}} </td>
-                                    <td> {% for consumption in consumptions %}
+                                    {% comment %} <td> {% for consumption in consumptions %}
                                         <div>
                                             {{ consumption.reading_date_time}}
                                         </div>
                                         {%endfor%}
-                                    </td>
-                                    <td> {% for consumption in consumptions %}
+                                    </td> {% endcomment %}
+                                    {% comment %} <td> {% for consumption in consumptions %}
                                         <div>
                                             {{consumption.consumption }}
                                         </div>
                                         {%endfor%}
-                                    </td>
+                                    </td> {% endcomment %}
                         {% endfor%}
                             </tr>
                 </table>

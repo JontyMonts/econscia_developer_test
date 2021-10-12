@@ -46,7 +46,8 @@ def specific_meter(request):
         context = {}
         meter_id = request.GET.get('meter_id','')
         try:
-            assert isinstance(meter_id, int)
+            # cast to int, so it catches if someones input a non-number string
+            meter_id = int(meter_id)
             meter = MeterData.objects.get(meter_id=meter_id)
         except:
             return HttpResponse("General error originating from building_id")
@@ -63,7 +64,6 @@ def specific_building(request):
 
         building_id = request.GET.get('building_id','')
 
-        # if no id set, or if id was incorrect (no such id or str instead of int)
         try:
             building_id = int(building_id)
             meters = MeterData.objects.filter(building_id=building_id)

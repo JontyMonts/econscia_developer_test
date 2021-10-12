@@ -39,7 +39,7 @@
 
                         {% for meter, consumptions in meter_dict.items%}
                             <tr> 
-                                <td> {{meter}} </td>
+                                <td><a href="../meter/?meter_id={{ meter.meter_id }}">{{meter}}</a> </td>
                                     {% comment %} <td> {% for consumption in consumptions %}
                                         <div>
                                             {{ consumption.reading_date_time}}

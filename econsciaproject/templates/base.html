@@ -2,13 +2,41 @@
 <html>
 
     <head>
-        <tite> <h1> Econscia coding challenge </h1> </title>
+        <title> Econscia coding challenge </title>
+<style>
+    ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    }
+
+    li {
+    float: left;
+    }
+
+    li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    }
+
+    /* Change the link color to #111 (black) on hover */
+    li a:hover {
+    background-color: #111;
+    }
+    </style>
     </head>
 
     <body>
     <div>
-        <td> <a href="/upload"> Upload csv File </a> </td>
-        <td> <a href="/view"> View all building data</a> </td>
+        <ul>
+            <li> <a href="/upload"><h2> Upload csv File </h2></a> </li>
+            <li> <a href="/"> <h2>View all building data</h2></a> </li>
+        </ul>
     </div>
         {% block content %} {% endblock %}
     </body>

@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+{% extends "base.html" %}
+{%block content %}
     <head>
         <meta charset="utf-8">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -65,27 +65,31 @@
 
     </div>
 
-<div width="200" height="100">
-    <canvas id="linechart" width="200" height="200"></canvas>
+<div width="400" height="400">
+    <canvas id="linechart" style="width: 200,height:100"></canvas>
 </div>
-    <script>
-    {% comment %} function randomColor(){
-        var letters= '012345678ABCDEF'.split();
-        var colour ='#';
-        for (var i=0; i < 6;i++){
-            colour += letters[Math.floor(Math.random() * 16)]
-        }
-        return colour;
-    } {% endcomment %}
 
+
+<script type="text/javascript">
+    function newRandomColour(){
+        var str = "'rgb("
+        for (i=0; i < 3; i++){
+            str += Math.floor(Math.random() * 255);
+            if (i <2){
+                str +=','
+            }
+        } 
+        str += ")'"
+        console.log(str);
+    }
     const labels = [ {% for j in date_range%} "{{j}}",{%endfor%}];
     const data = {
         labels: labels,
         datasets:[ {% for meter, consumptions in meter_dict.items%} 
                     {
                         label:'{{meter}}',
-                        backgroundColor: randomColor(),
-                        borderColor: randomColor(),
+                        backgroundColor: 'rgb(0,0,0)',
+                        borderColor: 'rgb(0,80,20)', // tried to get a random colour printed here but didn't work
                         data :[{%for consumption in consumptions%} "{{consumption.consumption}}", {%endfor%}]
                     },
                     {%endfor%}
@@ -97,11 +101,10 @@
     const config = {
         type: 'line',
         data: data,
-        options: {}
+        options: {responsive:'true'}
     };
     var chart = document.getElementById('linechart');
     var mychart = new Chart(chart, config);
-    </script>
+</script>
 </body>
-
-</html>
+{%endblock content%}

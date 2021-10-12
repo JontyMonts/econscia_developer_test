@@ -1,3 +1,7 @@
+
+{%extends "base.html"%}
+
+{% block content%}
 <head>
 <style>
 table {
@@ -33,10 +37,12 @@ tr:nth-child(even) {
 
                     {% for building, meters in meter_dict.items%}
                         <tr> 
-                            {% comment %} <td> <a href="building/?building_id=9582"> test </a> {% endcomment %}
                             <td> <a href="building/?building_id={{building.building_id}}"> {{building.name }} </a></td>
-                                <td> {% for meter in meters %}
-                                        <div> <a href="meter/?meter_id={{ meter }}">{{meter}}</a> </div>
+                                <td> 
+                                    {% for meter in meters %}
+                                        <div> 
+                                            <a href="meter/?meter_id={{ meter }}">{{meter}}</a> 
+                                        </div>
                                     {%endfor%}
                                 </td>
                     {% endfor%}
@@ -45,6 +51,5 @@ tr:nth-child(even) {
         </div>
     </div>
 </div>
-
-
 </body>
+{% endblock content %}

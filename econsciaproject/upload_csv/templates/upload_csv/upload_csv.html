@@ -1,5 +1,5 @@
-{% comment %} {% extends 'base.html' %} {% endcomment %}
-{% comment %} {% block content %} {% endcomment %}
+{% extends 'base.html' %}
+{% block content %}
 <form action="{% url "upload_csv" %}" method="POST" enctype="multipart/form-data" class="form-horizontal"> 
 {% csrf_token %}
 <div class="form-group">
@@ -27,4 +27,4 @@
 
 </form>
 
-{% comment %} {% endblock %} {% endcomment %}
+{% endblock %}

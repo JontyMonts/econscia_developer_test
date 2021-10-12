@@ -97,6 +97,7 @@ def upload_csv(request):
 
         elif request.POST['csv_type'] == 'half_hourly':
             if 'consumption,meter_id,reading_date_time' in lines[0]:
+                print("Validating hourly data")
                 for line in lines[1:]:
                     fields = line.split(",")
                     if fields[0] != '':
@@ -105,14 +106,11 @@ def upload_csv(request):
                         data_dict["meter"] = fields[1]
                         data_dict["reading_date_time"] = fields[2]
                     try:
-                        print(data_dict)
                         form = HalfhourlyDataForm(data_dict)
-                        print("validating form")
                         if form.is_valid():
                             form.save()
                             msg = "successfully uploaded half hourly reading data"
                         else:
-                            print("didn't work")
                             msg = form.errors
 
                     except Exception as e:

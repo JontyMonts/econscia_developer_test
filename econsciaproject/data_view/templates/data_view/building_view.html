@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <style>
+        table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 60%;
+        }
+
+        td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        }
+
+        tr:nth-child(even) {
+        background-color: #dddddd;
+        }
+        </style>
+    </head>
+
+    <body>
+    <div class="row">
+        <div class="col-md">
+            <div class="something else">
+                <h2> Meters and Consumption for {{building_name}} </h2>
+            </div>
+            <div class="table">
+                <table class="table">
+                    <tr>
+                        <th> Meter </th>
+                        <th> Time </th>
+                        <th> Consumption </th>
+                        
+                    </tr>
+
+                        {% for meter, consumptions in meter_dict.items%}
+                            <tr> 
+                                <td> {{meter}} </td>
+                                    <td> {% for consumption in consumptions %}
+                                        <div>
+                                            {{ consumption.reading_date_time}}
+                                        </div>
+                                        {%endfor%}
+                                    </td>
+                                    <td> {% for consumption in consumptions %}
+                                        <div>
+                                            {{consumption.consumption }}
+                                        </div>
+                                        {%endfor%}
+                                    </td>
+                        {% endfor%}
+                            </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+ <!--  End table -->
+{{dsa}}
+    <div>
+        <h1> Consumption throughout the day </h1>
+
+    </div>
+
+<div width="200" height="100">
+    <canvas id="linechart" width="200" height="200"></canvas>
+</div>
+    <script>
+    {% comment %} function randomColor(){
+        var letters= '012345678ABCDEF'.split();
+        var colour ='#';
+        for (var i=0; i < 6;i++){
+            colour += letters[Math.floor(Math.random() * 16)]
+        }
+        return colour;
+    } {% endcomment %}
+
+    const labels = [ {% for j in date_range%} "{{j}}",{%endfor%}];
+    const data = {
+        labels: labels,
+        datasets:[ {% for meter, consumptions in meter_dict.items%} 
+                    {
+                        label:'{{meter}}',
+                        backgroundColor: randomColor(),
+                        borderColor: randomColor(),
+                        data :[{%for consumption in consumptions%} "{{consumption.consumption}}", {%endfor%}]
+                    },
+                    {%endfor%}
+        
+            ]
+
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {}
+    };
+    var chart = document.getElementById('linechart');
+    var mychart = new Chart(chart, config);
+    </script>
+</body>
+
+</html>

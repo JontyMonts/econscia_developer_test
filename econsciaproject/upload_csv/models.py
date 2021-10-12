@@ -22,7 +22,7 @@ class MeterData(models.Model):
 
 
     def __str__(self) -> str:
-        return str(self.meter_id)
+        return str("{}-{}".format(self.meter_id,self.fuel))
 
 
 class HalfhourlyData(models.Model):

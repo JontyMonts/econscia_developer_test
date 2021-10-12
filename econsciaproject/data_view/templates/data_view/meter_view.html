@@ -1,0 +1,15 @@
+
+<h1> Consumption data for meter {{meter}} </h1>
+<body>
+<table>
+
+<th style="text-align:left"> Time </ht>
+<th> Consumption </th>
+
+{% for i in consumption_data %}
+<tr>
+    <td width="400"> {{ i.reading_date_time }}  </td><td>   {{i.consumption}} </td>
+</tr>
+{%endfor%}
+</table>
+</body>

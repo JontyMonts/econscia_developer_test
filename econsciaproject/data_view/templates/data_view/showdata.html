@@ -3,7 +3,7 @@
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  width: 70%;
 }
 
 td, th {
@@ -31,11 +31,12 @@ tr:nth-child(even) {
                     <th> meters </th>
                 </tr>
 
-                    {% for building_name, meters in meter_dict.items%}
+                    {% for building, meters in meter_dict.items%}
                         <tr> 
-                            <td> {{building_name}} </td>
+                            {% comment %} <td> <a href="building/?building_id=9582"> test </a> {% endcomment %}
+                            <td> <a href="building/?building_id={{building.building_id}}"> {{building.name }} </a></td>
                                 <td> {% for meter in meters %}
-                                        <div> {{ meter }} </div>
+                                        <div> <a href="meter/?meter_id={{ meter }}">{{meter}}</a> </div>
                                     {%endfor%}
                                 </td>
                     {% endfor%}

@@ -1,28 +1,7 @@
 {% extends "base.html" %}
 {%block content %}
-    <head>
-        <meta charset="utf-8">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <style>
-        table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 60%;
-        }
 
-        td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-        }
 
-        tr:nth-child(even) {
-        background-color: #dddddd;
-        }
-        </style>
-    </head>
-
-    <body>
     <div class="row">
         <div class="col-md">
             <div class="something else">
@@ -40,6 +19,7 @@
                         {% for meter, consumptions in meter_dict.items%}
                             <tr> 
                                 <td><a href="../meter/?meter_id={{ meter.meter_id }}">{{meter}}</a> </td>
+                                <!-- originally put the comsumption data on the same page but it made the page really long -->
                                     {% comment %} <td> {% for consumption in consumptions %}
                                         <div>
                                             {{ consumption.reading_date_time}}
@@ -59,15 +39,14 @@
         </div>
     </div>
  <!--  End table -->
-{{dsa}}
+
+
+ <!-- Graph stuff -->
     <div>
         <h1> Consumption throughout the day </h1>
 
     </div>
-
-<div width="400" height="400">
     <canvas id="linechart" style="width: 200,height:100"></canvas>
-</div>
 
 
 <script type="text/javascript">
@@ -93,11 +72,8 @@
                         data :[{%for consumption in consumptions%} "{{consumption.consumption}}", {%endfor%}]
                     },
                     {%endfor%}
-        
             ]
-
     };
-
     const config = {
         type: 'line',
         data: data,
@@ -106,5 +82,5 @@
     var chart = document.getElementById('linechart');
     var mychart = new Chart(chart, config);
 </script>
-</body>
+
 {%endblock content%}
